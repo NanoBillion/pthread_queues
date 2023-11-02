@@ -179,9 +179,10 @@
 </header>
 <h1 id="pthread-queues">Pthread Queues</h1>
 <h2 id="what-is-it">What is it?</h2>
-<p>This is an implementation of various queues using POSIX threads, also
-known as pthreads. Various queues means you can create queues with
-different insert/remove order:</p>
+<p>This is a compact implementation (just 2 files, <code>pq.c</code>,
+<code>pq.h</code>) of various queues using POSIX threads, also known as
+pthreads. Various queues means you can create queues with different
+insert/remove order:</p>
 <ul>
 <li>FIFO (<em>first in, first out</em>): how everybody understands a
 queue to behave.</li>
@@ -220,6 +221,20 @@ pointers.</li>
 <li>Queue types that don’t operate on priorities (FIFO and LIFO) still
 transport a message’s priority which may be used as a side channel.</li>
 </ul>
+<h2 id="how-do-i-use-pthread-queues-in-my-program">How do I use Pthread
+Queues in my Program?</h2>
+<ol type="1">
+<li>Add <code>pq.c</code> and <code>pq.h</code> to your source
+tree.</li>
+<li>Add feature test macros needed to compile pthread programs to your C
+compilation command, e.g. <code>-D_XOPEN_SOURCE=600</code>.</li>
+<li>Add <code>-lpthread</code> to the link command.</li>
+<li>Call Pthread Queue functions from a thread created with
+<em>pthread_create</em>(). Don’t call them from <em>main</em>(), as
+<em>main</em> is not a proper pthread.</li>
+</ol>
+<p>For reference, the unit tests in <code>test_pq.c</code> thoroughly
+exercise each function.</p>
 <h2 id="application-programming-interface-api">Application Programming
 Interface (API)</h2>
 <p>Manuals for</p>

@@ -7,8 +7,9 @@ author: Jens Schweikhardt
 
 ## What is it?
 
-This is an implementation of various queues using POSIX threads, also known
-as pthreads. Various queues means you can create queues with different
+This is a compact implementation (just 2 files, `pq.c`, `pq.h`)
+of various queues using POSIX threads, also known as pthreads.
+Various queues means you can create queues with different
 insert/remove order:
 
 * FIFO (_first in, first out_): how everybody understands a queue to behave.
@@ -40,6 +41,18 @@ Each queue has a set of attributes describing
   defining the queue structs with arrays instead of pointers.
 * Queue types that don't operate on priorities (FIFO and LIFO) still transport
   a message's priority which may be used as a side channel.
+
+## How do I use Pthread Queues in my Program?
+
+1. Add `pq.c` and `pq.h` to your source tree.
+2. Add feature test macros needed to compile pthread programs to your
+   C compilation command, e.g. `-D_XOPEN_SOURCE=600`.
+3. Add `-lpthread` to the link command.
+4. Call Pthread Queue functions from a thread created with *pthread_create*().
+   Don't call them from *main*(), as *main* is not a proper pthread.
+
+For reference, the unit tests in `test_pq.c` thoroughly exercise each
+function.
 
 ## Application Programming Interface (API)
 
