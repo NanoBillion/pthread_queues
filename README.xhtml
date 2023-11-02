@@ -306,22 +306,15 @@ FreeBSD 13.2                   October 10, 2023                   PQ_CREATE(3)
 PQ_DESTROY(3)               Library Functions Manual             PQ_DESTROY(3)
 
 <b>NAME</b>
-       pq_create, pq_destroy — create or destroy a POSIX/pthread queue
+       pq_destroy — destroy a POSIX/pthread queue
 
 <b>SYNOPSIS</b>
        <b>#include &lt;pq.h&gt;</b>
 
        <i>pq_status_t</i>
-       <i>pq_create</i>(<i>struct</i> <i>pq_queue</i> <i>**q</i>, <i>struct</i> <i>pq_attr</i> <i>*attr</i>);
-
-       <i>pq_status_t</i>
        <i>pq_destroy</i>(<i>struct</i> <i>pq_queue</i> <i>*q</i>);
 
 <b>DESCRIPTION</b>
-       The  <i>pq_create</i>() function creates a new queue. Upon success it stores a
-       queue handle in the memory pointed to by <i>q</i>.  The <i>attr</i>  argument  points
-       to a structure with the following members: TODO
-
        The  <i>pq_destroy</i>() function destroys the queue <i>q</i>, freeing all memory al‐
        located upon its creation.
 
@@ -330,21 +323,13 @@ PQ_DESTROY(3)               Library Functions Manual             PQ_DESTROY(3)
        returned to indicate the error or special condition.
 
 <b>ERRORS</b>
-       The <i>pq_create</i>() function fails if:
-
-       [EINVAL]           The argument <i>q</i> or the argument <i>attr</i> is NULL.
-
-       [ENOMEM]           Not enough memory.
-
-       [EAGAIN]           The system temporarily lacks the resources to create
-                          another condition variable.
-
        The <i>pq_destroy</i>() function fails if:
 
        [EINVAL]           The argument <i>q</i> is NULL.
 
 <b>SEE ALSO</b>
-       <i>pq_recv_nonbl</i>(3), <i>pq_recv_timed</i>(3), <i>pq_send_nonbl</i>(3), <i>pq_send_timed</i>(3)
+       <i>pq_create</i>(3),  <i>pq_recv_nonbl</i>(3),  <i>pq_recv_timed</i>(3),   <i>pq_send_nonbl</i>(3),
+       <i>pq_send_timed</i>(3)
 
 FreeBSD 13.2                   October 10, 2023                  PQ_DESTROY(3)
 </pre>
