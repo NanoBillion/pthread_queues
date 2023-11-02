@@ -12,7 +12,7 @@ as pthreads. Various queues means you can create queues with different
 insert/remove order:
 
 * FIFO (_first in, first out_): how everybody understands a queue to behave.
-* Priority queue; messages have a priority and are removed highest priority
+* Priority queue: messages have a priority and are removed highest priority
   first. If more than one message have the highest priority, the order is
   unspecified. (If you must know, it's _binary heap order_.)
 * Priority queue plus FIFO: messages have a priority and are removed highest
@@ -25,6 +25,7 @@ Each queue has a set of attributes describing
 * Queue insert/remove order.
 * Queue capacity: how many messages it can receive until full.
 * Queue message size: how much data a single message can transport.
+* Maximum priority a message can have.
 
 ## Features
 
