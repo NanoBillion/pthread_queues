@@ -1,3 +1,11 @@
+predef-c.h
+lint.lnt
+stackusage.txt
+tags
+tags.p
+depend
+test_pq
+
 # Prerequisites
 *.d
 

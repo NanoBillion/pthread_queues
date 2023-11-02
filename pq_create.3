@@ -1,0 +1,89 @@
+.Dd October 10, 2023
+.Dt PQ_CREATE 3
+.Os
+.Sh NAME
+.Nm pq_create
+.Nd create a pthread queue
+.Sh SYNOPSIS
+.In pq.h
+.Ft pq_status_t
+.Fn pq_create "struct pq_queue **q" "struct pq_attr *attr"
+.Sh DESCRIPTION
+The
+.Fn pq_create
+function creates a new queue. Upon success it stores
+a queue handle in the memory pointed to by
+.Fa q .
+The
+.Fa attr
+argument points to a structure with the following members:
+.Pp
+.Bl -tag -width 10n -compact
+.It Sy maxmsg
+Number of messages queue can receive until full.
+.It Sy msgsize
+Maximum message size in bytes.
+.It Sy order
+Insert/remove order, see below.
+.It Sy maxprio
+For priority queues, the maximum allowed priority.
+.El
+.Pp
+The order attribute is one of
+.Pp
+.Bl -tag -width 10n -compact
+.It Sy PQ_ATTR_FIFO
+FIFO (first in, first out).
+How everybody understands a queue to behave.
+Message priorities are ignored but sent and received intact.
+Insert and remove operations have complexity O(1).
+.It Sy PQ_ATTR_PRIOQ
+Priority queue.
+Messages have a priority and are removed highest priority first.
+If more than one message has the highest priority, the order is
+unspecified.
+Insert and remove operations have complexity O(log N).
+.It Sy PQ_ATTR_PRIFO
+Priority queue plus FIFO.
+Messages have a priority and are removed highest priority first.
+If more than one message has the highest priority, the order
+is FIFO among those messages.
+The insert operation has complexity O(N), remove O(1).
+.It Sy PQ_ATTR_LIFO
+LIFO (last in, first out).
+How everybody understands a stack to behave.
+Message priorities are ignored but sent and received intact.
+Insert and remove operations have complexity O(1).
+.El
+.Pp
+Message data are copied when sent and received.
+Data may come from objects that go out of
+scope or are deallocated after sending.
+.Sh RETURN VALUES
+If successful, the function returns zero.
+Otherwise an error number is returned to indicate the error or
+special condition.
+.Sh ERRORS
+The
+.Fn pq_create
+function fails if:
+.Bl -tag -width Er
+.It Bq Er EINVAL
+The argument
+.Fa q
+or the argument
+.Fa attr
+is NULL.
+.It Bq Er ENOMEM
+Not enough memory.
+.It Bq Er EAGAIN
+The system temporarily lacks the resources to create
+another condition variable.
+.El
+.Sh SEE ALSO
+.Xr pq_create 3 ,
+.Xr pq_recv_nonbl 3 ,
+.Xr pq_recv_timed 3 ,
+.Xr pq_send_nonbl 3 ,
+.Xr pq_send_timed 3
+.\" vim: syntax=groff
