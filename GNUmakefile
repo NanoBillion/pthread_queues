@@ -44,7 +44,7 @@ ESC   := $(shell printf '\033')
 #   How to turn manual page source into text for terminal.
 #
 %.3.txt: %.3
-	groff -mandoc -Tutf8 $^ > $@
+	GROFF_SGR=y groff -mandoc -Tutf8 $^ > $@
 
 #   How to convert manual to markdown.
 #
